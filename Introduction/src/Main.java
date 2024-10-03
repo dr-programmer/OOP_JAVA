@@ -22,7 +22,6 @@ public class Main {
         int stars = sc.nextInt();
         sc.close();
 
-        int lineCount = stars * 2 - 1;
         for (int i = 0; i < stars; i++) {
             for (int j = 0; j < stars - i; j++) {
                 System.out.print(" ");
