@@ -6,6 +6,7 @@ public class Circle {
 
     public Circle() {}
     public Circle(double radius) {
+        if(radius < 0) return;
         this.radius = radius;
     }
 
@@ -14,6 +15,7 @@ public class Circle {
     }
 
     public void setRadius(double radius) {
+        if(radius < 0) return;
         this.radius = radius;
     }
 
