@@ -128,7 +128,7 @@ class ListIterator implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        if(current.getNext() == null) {
+        if(current == null) {
             return false;
         }
         return true;
