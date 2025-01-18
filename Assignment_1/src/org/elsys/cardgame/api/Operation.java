@@ -1,6 +1,6 @@
 package org.elsys.cardgame.api;
 
-@FunctionalInterface
 public interface Operation {
-    void execute(Deck deck) throws CardException;
+    String getName();
+    void execute(GameImpl game) throws CardException;
 }

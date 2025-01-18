@@ -1,7 +1,6 @@
 package org.elsys.cardgame.api;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,72 +9,38 @@ public class GameImpl implements Game {
     private Deck deck;
     private Hand lastHand;
 
-    public GameImpl(Deck parameterDeck) {
+    public GameImpl(Deck deck) {
         operations = new HashMap<>();
-        operations.put("size", deck -> {
-            System.out.println(deck.getSize());
-        });
-        operations.put("draw_top_card", deck -> {
-            if(deck.getSize() < 1) {
-                throw new CardException("ERROR: Not enough cards in deck");
-            }
-            System.out.println(deck.takeTopCard());
-        });
-        operations.put("draw_bottom_card", deck -> {
-            if(deck.getSize() < 1) {
-                throw new CardException("ERROR: Not enough cards in deck");
-            }
-            System.out.println(deck.takeBottomCard());
-        });
-        operations.put("top_card", deck -> {
-            if(deck.getSize() < 1) {
-                throw new CardException("ERROR: Not enough cards in deck");
-            }
-            System.out.println(deck.getCards().getFirst());
-        });
-        operations.put("bottom_card", deck -> {
-            if(deck.getSize() < 1) {
-                throw new CardException("ERROR: Not enough cards in deck");
-            }
-            System.out.println(deck.getCards().getLast());
-        });
-        operations.put("shuffle", deck -> {
-            deck.shuffle();
-            for(Card card : deck.getCards()) {
-                System.out.print(card + " ");
-            }
-            System.out.println();
-        });
-        operations.put("sort", deck -> {
-            deck.sort();
-            for(Card card : deck.getCards()) {
-                System.out.print(card + " ");
-            }
-            System.out.println();
-        });
-        operations.put("deal", deck -> {
-            if(deck.getSize() < deck.getHandSize()) {
-                throw new CardException("ERROR: Not enough cards in deck");
-            }
-            this.lastHand = deck.deal();
-            for(Card card : this.lastHand.getCards()) {
-                System.out.print(card + " ");
-            }
-            System.out.println();
-        });
-
-        this.deck = parameterDeck;
+        operations.put("size", new SizeOperation());
+        operations.put("sort", new SortOperation());
+        operations.put("shuffle", new ShuffleOperation());
+        operations.put("deal", new DealOperation());
+        operations.put("draw_top_card", new DrawTopCardOperation());
+        operations.put("draw_bottom_card", new DrawBottomCardOperation());
+        operations.put("top_card", new TopCardOperation());
+        operations.put("bottom_card", new BottomCardOperation());
+        this.deck = deck;
     }
 
     @Override
     public void process(String operationName) {
         Operation operation = operations.get(operationName);
         try {
-            operation.execute(deck);
+            operation.execute(this);
         }
-        catch(CardException e) {
+        catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Override
+    public Deck getDeck() {
+        return deck;
+    }
+
+    @Override
+    public Hand getLastHand() {
+        return lastHand;
     }
 
     @Override
@@ -83,24 +48,12 @@ public class GameImpl implements Game {
         return operations.keySet();
     }
 
-    public Map<String, Operation> getOperations() {
-        return operations;
-    }
-
     public void setOperations(Map<String, Operation> operations) {
         this.operations = operations;
     }
 
-    public Deck getDeck() {
-        return deck;
-    }
-
     public void setDeck(Deck deck) {
         this.deck = deck;
-    }
-
-    public Hand getLastHand() {
-        return lastHand;
     }
 
     public void setLastHand(Hand lastHand) {

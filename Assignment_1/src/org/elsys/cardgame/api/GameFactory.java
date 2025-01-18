@@ -18,7 +18,7 @@ public class GameFactory {
                 .collect(Collectors.toList());
         deck.setCards(cards);
 
-        return new GameImpl(deck);
+        return new FunctionalGameImpl(deck);
     }
 
     public static Game createBeloteGame(List<Card> cards) throws CardException {
@@ -34,7 +34,7 @@ public class GameFactory {
                 .collect(Collectors.toList());
         deck.setCards(cards);
 
-        return new GameImpl(deck);
+        return new FunctionalGameImpl(deck);
     }
 
     public static Game createSantaseGame(List<Card> cards) throws CardException {
@@ -50,11 +50,11 @@ public class GameFactory {
                 .collect(Collectors.toList());
         deck.setCards(cards);
 
-        return new GameImpl(deck);
+        return new FunctionalGameImpl(deck);
     }
 
     public static Game createTempGame() {
-        return new GameImpl(new AbstractDeck() {
+        return new FunctionalGameImpl(new AbstractDeck() {
             @Override
             public void sort() {
                 return;
