@@ -5,12 +5,12 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public class BelotDeck extends AbstractDeck {
+public class BeloteDeck extends AbstractDeck {
     final Integer constDeckSize = 32;
     final Integer constHandSize = 8;
     final Integer constRankStartIndex = 5;
 
-    public BelotDeck() {
+    public BeloteDeck() {
         List<Card> cards = new ArrayList<Card>();
 
         Rank[] allRanks = Rank.values();
@@ -23,6 +23,7 @@ public class BelotDeck extends AbstractDeck {
 
         setCards(cards);
         setHandSize(constHandSize);
+        this.sort();
     }
 
     @Override

@@ -8,7 +8,8 @@ public interface Deck {
     Integer getHandSize();
 
     Hand deal();
-    Card takeCard();
+    Card takeTopCard();
+    Card takeBottomCard();
     void sort();
     void shuffle();
 }

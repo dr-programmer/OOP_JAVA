@@ -23,6 +23,7 @@ public class SantaseDeck extends AbstractDeck {
 
         setCards(cards);
         setHandSize(constHandSize);
+        this.sort();
     }
 
     @Override

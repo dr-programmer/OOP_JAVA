@@ -27,8 +27,13 @@ public abstract class AbstractDeck implements Deck {
     }
 
     @Override
-    public Card takeCard() {
+    public Card takeTopCard() {
         return cards.removeFirst();
+    }
+
+    @Override
+    public Card takeBottomCard() {
+        return cards.removeLast();
     }
 
     @Override
@@ -38,12 +43,14 @@ public abstract class AbstractDeck implements Deck {
 
     @Override
     public Hand deal() {
-        return new HandImpl(
+        Hand hand =  new HandImpl(
                 cards
                         .stream()
                         .limit(handSize)
                         .collect(Collectors.toList())
         );
+        cards.subList(0, handSize).clear();
+        return hand;
     }
 
     @Override
