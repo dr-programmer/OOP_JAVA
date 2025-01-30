@@ -1,6 +1,7 @@
 import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 public class Shelf implements Comparable<Shelf> {
     private Double currentTemp;
@@ -18,31 +19,12 @@ public class Shelf implements Comparable<Shelf> {
         this.products = products;
     }
 
-    private boolean isSuitable(Product p) {
-        if((p instanceof FrozenProducts) && ((FrozenProducts) p).getTemp() < currentTemp) {
-            return false;
-        }
-        if((p instanceof FreshProducts) && ((FreshProducts) p).getMoisture() > currentMoisture) {
-            return false;
-        }
-        return true;
-    }
-
     boolean isSuitableForAll() {
-        for(Product p : products) {
-            if(!isSuitable(p)) {
-                return false;
-            }
-        }
-        return true;
+        return products.stream().anyMatch(x -> !x.isSuitable(currentTemp, currentMoisture));
     }
 
     void removeUnsuitable() {
-        for(Product p : products) {
-            if(!isSuitable(p)) {
-                products.remove(p);
-            }
-        }
+        products.removeIf(x -> !x.isSuitable(currentTemp, currentMoisture));
     }
 
     Double removeExpired(Date currentDate) {
@@ -58,19 +40,11 @@ public class Shelf implements Comparable<Shelf> {
     }
 
     Double averagePrice() {
-        double priceSum = 0.0;
-        for(Product p : products) {
-            priceSum += p.getPrice();
-        }
-        return priceSum / products.size();
+        return products.stream().map(Product::getPrice).reduce(0.0, Double::sum) / products.size();
     }
 
     Double getTotalShelfValue() {
-        double priceSum = 0.0;
-        for(Product p : products) {
-            priceSum += p.getPrice();
-        }
-        return priceSum;
+        return products.stream().map(Product::getPrice).reduce(0.0, Double::sum);
     }
 
     public Double getCurrentTemp() {

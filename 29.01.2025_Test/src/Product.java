@@ -13,6 +13,8 @@ public abstract class Product implements Comparable<Product> {
         this.expirationDate = expirationDate;
     }
 
+    public abstract boolean isSuitable(Double currentTemp, Double currentMoisture);
+
     public int getId() {
         return id;
     }

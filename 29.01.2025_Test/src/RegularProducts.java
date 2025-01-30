@@ -15,4 +15,9 @@ public class RegularProducts extends Product {
         if(packageType == null) throw new NullPointerException("Package type cannot be null");
         this.packageType = packageType;
     }
+
+    @Override
+    public boolean isSuitable(Double currentTemp, Double currentMoisture) {
+        return true;
+    }
 }

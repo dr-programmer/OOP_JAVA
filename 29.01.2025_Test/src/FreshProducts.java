@@ -16,4 +16,12 @@ public class FreshProducts extends Product {
         if(moisture < 0 || moisture > 100) throw new IllegalArgumentException("moisture is out of range");
         this.moisture = moisture;
     }
+
+    @Override
+    public boolean isSuitable(Double currentTemp, Double currentMoisture) {
+        if(this.getMoisture() > currentMoisture) {
+            return false;
+        }
+        return true;
+    }
 }
