@@ -68,4 +68,33 @@ public abstract class Product implements Comparable<Product> {
         if(compare != 0) return compare;
         return this.name.compareTo(o.name);
     }
+
+    public abstract static class ProductBuilder {
+        protected Integer id;
+        protected String name;
+        protected Double price;
+        protected Date expirationDate;
+
+        public ProductBuilder id(Integer id) {
+            this.id = id;
+            return this;
+        }
+
+        public ProductBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public ProductBuilder price(Double price) {
+            this.price = price;
+            return this;
+        }
+
+        public ProductBuilder expirationDate(Date expirationDate) {
+            this.expirationDate = expirationDate;
+            return this;
+        }
+
+        public abstract Product build();
+    }
 }

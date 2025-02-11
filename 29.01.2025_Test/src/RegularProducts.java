@@ -7,6 +7,11 @@ public class RegularProducts extends Product {
         super(id, name, price, expirationDate);
     }
 
+    public RegularProducts(RegularProductBuilder builder) {
+        super(builder.id, builder.name, builder.price, builder.expirationDate);
+        this.packageType = builder.packageType;
+    }
+
     public PackageType getPackageType() {
         return packageType;
     }
@@ -19,5 +24,19 @@ public class RegularProducts extends Product {
     @Override
     public boolean isSuitable(Double currentTemp, Double currentMoisture) {
         return true;
+    }
+
+    public static class RegularProductBuilder extends ProductBuilder {
+        private PackageType packageType;
+
+        public RegularProductBuilder packageType(PackageType packageType) {
+            this.packageType = packageType;
+            return this;
+        }
+
+        @Override
+        public Product build() {
+            return new RegularProducts(this);
+        }
     }
 }

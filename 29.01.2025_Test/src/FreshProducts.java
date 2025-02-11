@@ -7,6 +7,11 @@ public class FreshProducts extends Product {
         super(id, name, price, expirationDate);
     }
 
+    public FreshProducts(FreshProductBuilder builder) {
+        super(builder.id, builder.name, builder.price, builder.expirationDate);
+        this.moisture = builder.moisture;
+    }
+
     public Double getMoisture() {
         return moisture;
     }
@@ -23,5 +28,19 @@ public class FreshProducts extends Product {
             return false;
         }
         return true;
+    }
+
+    public static class FreshProductBuilder extends ProductBuilder {
+        private Double moisture;
+
+        public FreshProductBuilder moisture(Double moisture) {
+            this.moisture = moisture;
+            return this;
+        }
+
+        @Override
+        public Product build() {
+            return new FreshProducts(this);
+        }
     }
 }

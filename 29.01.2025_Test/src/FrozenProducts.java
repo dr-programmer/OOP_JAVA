@@ -7,6 +7,11 @@ public class FrozenProducts extends Product {
         super(id, name, price, expirationDate);
     }
 
+    public FrozenProducts(FrozenProductBuilder builder) {
+        super(builder.id, builder.name, builder.price, builder.expirationDate);
+        this.temp = builder.temp;
+    }
+
     public Double getTemp() {
         return temp;
     }
@@ -22,5 +27,19 @@ public class FrozenProducts extends Product {
             return false;
         }
         return true;
+    }
+
+    public static class FrozenProductBuilder extends ProductBuilder {
+        private Double temp;
+
+        public FrozenProductBuilder temp(Double temp) {
+            this.temp = temp;
+            return this;
+        }
+
+        @Override
+        public Product build() {
+            return new FrozenProducts(this);
+        }
     }
 }
