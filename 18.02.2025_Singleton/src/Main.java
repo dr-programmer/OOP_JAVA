@@ -5,7 +5,7 @@ public class Main {
 
         System.out.println(s1 == s2);
         s1.setId(1);
-        s2.setFirstName("John");`
+        s2.setFirstName("John");
         s2.setLastName("Doe");
 
         System.out.println(s1);
